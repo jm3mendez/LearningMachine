@@ -71,6 +71,7 @@ dim(training); dim(testing)
 ptm=proc.time();
 modFit <- train(classe ~ ., method="rf", data=training, prox=TRUE, allowParallel=TRUE, trControl = trainControl(method="cv", number = 3))
 proc.time() - ptm
+```
     user   system  elapsed 
 9003.021  182.622 9202.038 
 
@@ -96,8 +97,8 @@ The final value used for the model was mtry = 12.
  pred <- predict(modFit, newdata = training)
  confusionMatrix(pred, training$classe)
 
-{\bConfusion Matrix and Statistics}
-{\tt
+Confusion Matrix and Statistics
+
           Reference
 Prediction    A    B    C    D    E
          A 5469    0    0    0    0
@@ -105,7 +106,7 @@ Prediction    A    B    C    D    E
          C    0    0 3354    0    0
          D    0    0    0 3152    0
          E    0    0    0    0 3535
-}
+
 Overall Statistics
                                      
                Accuracy : 1          
@@ -171,6 +172,7 @@ Balanced Accuracy      1.0000   1.0000   0.9984   0.9922   1.0000
  pred3=predict(modFit,newdata=atest)
  pred3
  [1] B A B A A E D B A A B C B A E E A B B B
+```
 
 # Conclusion
 

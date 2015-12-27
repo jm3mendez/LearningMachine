@@ -121,41 +121,107 @@ dim(training); dim(testing)</code></pre>
 <div id="learning-machine" class="section level1">
 <h1>Learning Machine</h1>
 <p>We Used random forest to create the model as classifier and cross validation with k-fold 5 too The process time implied was high I used som facilities to improve that. resampling might give more better result but i probed k=3 and now k=5 and the result was very closed, then augment the partitioning is not necessary.</p>
-<p>ptm=proc.time(); modFit &lt;- train(classe ~ ., method=“rf”, data=training, prox=TRUE, allowParallel=TRUE, trControl = trainControl(method=“cv”, number = 3)) proc.time() - ptm user system elapsed 9003.021 182.622 9202.038</p>
-<p>modFit</p>
-<p>19232 samples 23 predictor 5 classes: ‘A’, ‘B’, ‘C’, ‘D’, ‘E’</p>
-<p>No pre-processing Resampling: Cross-Validated (3 fold) Summary of sample sizes: 12821, 12822, 12821 Resampling results across tuning parameters:</p>
-<p>mtry Accuracy Kappa Accuracy SD Kappa SD ‘/n’ 2 0.9936044 0.9919107 0.0012478554 0.0015782508 ‘/n’ 12 0.9979201 0.9973692 0.0003604496 0.0004560641 ‘/n’ 23 0.9965681 0.9956587 0.0015834786 0.0020039552 ‘/n’</p>
-<p>Accuracy was used to select the optimal model using the largest value. The final value used for the model was mtry = 12.</p>
-<p>pred &lt;- predict(modFit, newdata = training) confusionMatrix(pred, training$classe)</p>
-<p>{Matrix and Statistics} {Reference Prediction A B C D E A 5469 0 0 0 0 B 0 3722 0 0 0 C 0 0 3354 0 0 D 0 0 0 3152 0 E 0 0 0 0 3535 } Overall Statistics</p>
-<pre><code>           Accuracy : 1          
-             95% CI : (0.9998, 1)
-No Information Rate : 0.2844     
-P-Value [Acc &gt; NIR] : &lt; 2.2e-16  
-                                 
-              Kappa : 1          </code></pre>
-<p>Mcnemar’s Test P-Value : NA</p>
-<p>Statistics by Class:</p>
-<pre><code>                 Class: A Class: B Class: C Class: D Class: E</code></pre>
-<p>Sensitivity 1.0000 1.0000 1.0000 1.0000 1.0000 Specificity 1.0000 1.0000 1.0000 1.0000 1.0000 Pos Pred Value 1.0000 1.0000 1.0000 1.0000 1.0000 Neg Pred Value 1.0000 1.0000 1.0000 1.0000 1.0000 Prevalence 0.2844 0.1935 0.1744 0.1639 0.1838 Detection Rate 0.2844 0.1935 0.1744 0.1639 0.1838 Detection Prevalence 0.2844 0.1935 0.1744 0.1639 0.1838 Balanced Accuracy 1.0000 1.0000 1.0000 1.0000 1.0000</p>
-<p>pred2=predict(modFit,newdata = testing) pred2</p>
-<p>confusionMatrix(pred2, testing$classe) Confusion Matrix and Statistics</p>
-<pre><code>      Reference</code></pre>
-<p>Prediction A B C D E A 111 0 0 0 0 B 0 75 0 0 0 C 0 0 68 1 0 D 0 0 0 63 0 E 0 0 0 0 72</p>
-<p>Overall Statistics</p>
-<pre><code>           Accuracy : 0.9974          
-             95% CI : (0.9858, 0.9999)
-No Information Rate : 0.2846          
-P-Value [Acc &gt; NIR] : &lt; 2.2e-16       
-                                      
-              Kappa : 0.9968          </code></pre>
-<p>Mcnemar’s Test P-Value : NA</p>
-<p>Statistics by Class:</p>
-<pre><code>                 Class: A Class: B Class: C Class: D Class: E</code></pre>
-<p>Sensitivity 1.0000 1.0000 1.0000 0.9844 1.0000 Specificity 1.0000 1.0000 0.9969 1.0000 1.0000 Pos Pred Value 1.0000 1.0000 0.9855 1.0000 1.0000 Neg Pred Value 1.0000 1.0000 1.0000 0.9969 1.0000 Prevalence 0.2846 0.1923 0.1744 0.1641 0.1846 Detection Rate 0.2846 0.1923 0.1744 0.1615 0.1846 Detection Prevalence 0.2846 0.1923 0.1769 0.1615 0.1846 Balanced Accuracy 1.0000 1.0000 0.9984 0.9922 1.0000</p>
-<p>Then the 20th predictions asked using modFit are:</p>
-<p>pred3=predict(modFit,newdata=atest) pred3 [1] B A B A A E D B A A B C B A E E A B B B</p>
+<p>ptm=proc.time(); modFit &lt;- train(classe ~ ., method=“rf”, data=training, prox=TRUE, allowParallel=TRUE, trControl = trainControl(method=“cv”, number = 3)) proc.time() - ptm</p>
+<pre><code>    user   system  elapsed 
+9003.021  182.622 9202.038 
+
+modFit
+
+19232 samples
+   23 predictor
+    5 classes: 'A', 'B', 'C', 'D', 'E' 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold) 
+Summary of sample sizes: 12821, 12822, 12821 
+Resampling results across tuning parameters:
+
+  mtry  Accuracy   Kappa      Accuracy SD   Kappa SD       '/n'
+   2    0.9936044  0.9919107  0.0012478554  0.0015782508   '/n'
+  12    0.9979201  0.9973692  0.0003604496  0.0004560641   '/n'
+  23    0.9965681  0.9956587  0.0015834786  0.0020039552   '/n'
+
+Accuracy was used to select the optimal model using  the largest value.
+The final value used for the model was mtry = 12. 
+
+ pred &lt;- predict(modFit, newdata = training)
+ confusionMatrix(pred, training$classe)
+
+Confusion Matrix and Statistics
+
+          Reference
+Prediction    A    B    C    D    E
+         A 5469    0    0    0    0
+         B    0 3722    0    0    0
+         C    0    0 3354    0    0
+         D    0    0    0 3152    0
+         E    0    0    0    0 3535
+
+Overall Statistics
+                                     
+               Accuracy : 1          
+                 95% CI : (0.9998, 1)
+    No Information Rate : 0.2844     
+    P-Value [Acc &gt; NIR] : &lt; 2.2e-16  
+                                     
+                  Kappa : 1          
+ Mcnemar's Test P-Value : NA         
+
+Statistics by Class:
+
+                     Class: A Class: B Class: C Class: D Class: E
+Sensitivity            1.0000   1.0000   1.0000   1.0000   1.0000
+Specificity            1.0000   1.0000   1.0000   1.0000   1.0000
+Pos Pred Value         1.0000   1.0000   1.0000   1.0000   1.0000
+Neg Pred Value         1.0000   1.0000   1.0000   1.0000   1.0000
+Prevalence             0.2844   0.1935   0.1744   0.1639   0.1838
+Detection Rate         0.2844   0.1935   0.1744   0.1639   0.1838
+Detection Prevalence   0.2844   0.1935   0.1744   0.1639   0.1838
+Balanced Accuracy      1.0000   1.0000   1.0000   1.0000   1.0000
+
+
+ pred2=predict(modFit,newdata = testing)
+ pred2
+
+ confusionMatrix(pred2, testing$classe)
+ Confusion Matrix and Statistics
+
+          Reference
+Prediction   A   B   C   D   E
+         A 111   0   0   0   0
+         B   0  75   0   0   0
+         C   0   0  68   1   0
+         D   0   0   0  63   0
+         E   0   0   0   0  72
+
+Overall Statistics
+                                          
+               Accuracy : 0.9974          
+                 95% CI : (0.9858, 0.9999)
+    No Information Rate : 0.2846          
+    P-Value [Acc &gt; NIR] : &lt; 2.2e-16       
+                                          
+                  Kappa : 0.9968          
+ Mcnemar's Test P-Value : NA              
+
+Statistics by Class:
+
+                     Class: A Class: B Class: C Class: D Class: E
+Sensitivity            1.0000   1.0000   1.0000   0.9844   1.0000
+Specificity            1.0000   1.0000   0.9969   1.0000   1.0000
+Pos Pred Value         1.0000   1.0000   0.9855   1.0000   1.0000
+Neg Pred Value         1.0000   1.0000   1.0000   0.9969   1.0000
+Prevalence             0.2846   0.1923   0.1744   0.1641   0.1846
+Detection Rate         0.2846   0.1923   0.1744   0.1615   0.1846
+Detection Prevalence   0.2846   0.1923   0.1769   0.1615   0.1846
+Balanced Accuracy      1.0000   1.0000   0.9984   0.9922   1.0000
+
+
+ Then the 20th predictions asked using modFit are:
+ 
+ pred3=predict(modFit,newdata=atest)
+ pred3
+ [1] B A B A A E D B A A B C B A E E A B B B</code></pre>
 </div>
 <div id="conclusion" class="section level1">
 <h1>Conclusion</h1>
