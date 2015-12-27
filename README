@@ -1,0 +1,22 @@
+
+
+ The objetive of this work is oredict the activity type done by people having the HAR: human Activity Recognition.
+
+ The data comes from http://groupware.les.inf.puc-rio.br/har
+
+ The training data have a classe variable that specify the type of action between 5 categories: stand, stand up, walk,.... A, B, C, D, E 
+
+ There are 160 variables and 19622 observation. From there we define a partition for traing over 92% and the rest tu testing.
+
+ The other importante aspect es to establishe the model where pshysics and correlation consideration where don in order to reduce the variables from 190 to 24. between acceleration, locatio, x,y,z and temporal variables are considered.
+
+ The best aun atomatic parameter setting method was choosed. It is called Random Foresit. We use Cross validation a number =3 or 5 of k-fold o partitions . Divide to controll. 
+
+ We have here a lot of computational challenger. The process take mor of 2.5 hr. In order to improve that I tried to use parallel schemes or packages like: doMC and doParallel but the result were not fine because the number of memore needed wa very high from 8GB in the standard running 1 CPU. to 24GB of RAM 3 cores. Finally i prefered the normal method non parallel. Because the parallel schema have problems of memory leak and swapping.
+
+ The cross validatio elimminated the potencial overfitting.
+
+The results was fine.
+Regards,
+
+Jose Mendez     
