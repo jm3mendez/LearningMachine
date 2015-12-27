@@ -1,22 +1,23 @@
 
 
- The objetive of this work is oredict the activity type done by people having the HAR: human Activity Recognition.
+ The objetive of this work is predict the activity type done by people having the HAR: human Activity Recognition Data.
 
  The data comes from http://groupware.les.inf.puc-rio.br/har
 
  The training data have a classe variable that specify the type of action between 5 categories: stand, stand up, walk,.... A, B, C, D, E 
 
- There are 160 variables and 19622 observation. From there we define a partition for traing over 92% and the rest tu testing.
+ There are 160 variables and 19622 observation. From there we define a partition for training over 92% and the rest to testing and then prepared to predict.
 
- The other importante aspect es to establishe the model where pshysics and correlation consideration where don in order to reduce the variables from 190 to 24. between acceleration, locatio, x,y,z and temporal variables are considered.
+ The other important aspect is to establish the model, where pshysics and correlation consideration where done in order to reduce the variables from 190 to 24. Between acceleration, location, x,y,z and temporal variables are considered.
 
- The best aun atomatic parameter setting method was choosed. It is called Random Foresit. We use Cross validation a number =3 or 5 of k-fold o partitions . Divide to controll. 
+ The best and automatic parameter setting method was choosed. It is called Random Foresit. We use Cross validation an a number =3 or 5 of k-fold o partitions . Divide to control is the idea, more fores dismish the error. 
 
- We have here a lot of computational challenger. The process take mor of 2.5 hr. In order to improve that I tried to use parallel schemes or packages like: doMC and doParallel but the result were not fine because the number of memore needed wa very high from 8GB in the standard running 1 CPU. to 24GB of RAM 3 cores. Finally i prefered the normal method non parallel. Because the parallel schema have problems of memory leak and swapping.
+ We had here a lot of computational challenger. The process take more of 2.5 hr. In order to improve that I tried to use parallel schemes or packages like: doMC and doParallel but the result were not fine because the number of memory needed was very high from 8GB in the standard running 1 CPU. to 24GB of RAM 3 cores. Finally I prefered the normal method non parallel. Because the parallel schema have problems of memory leak and swapping. Two are the most relevant resources the DIsk Bandwidth and Quantity of memory over 32GB later more of 3 cores.
 
- The cross validatio elimminated the potencial overfitting.
+ The cross validation trend to elimminate the potencial overfitting.
 
-The results was fine.
+The final results was fine. The solution was an adequated methos and adequated selection of variables.
+
 Regards,
 
 Jose Mendez     
